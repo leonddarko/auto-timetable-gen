@@ -74,7 +74,7 @@ export default function LoginPage() {
             {/* Back to Home Navigation anchor */}
             <Link 
                 href="/" 
-                className="absolute top-6 left-6 btn btn-ghost gap-2 normal-case rounded-full text-neutral"
+                className="absolute top-6 left-6 btn btn-ghost gap-2 normal-case rounded-full text-gray-500"
             >
                 <ArrowLeft className="w-4 h-4" />
                 Back to Home

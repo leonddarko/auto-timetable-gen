@@ -29,7 +29,7 @@ export default function Home() {
               </h1>
 
               <p className="max-w-md text-sm text-base-content/70 mb-8">
-                Welcome to your coursework scheduling platform. Generate conflict-free lecture hours or view assigned semester schedules.
+                Welcome to your coursework scheduling platform. Generate conflict-free lecture hours or view assigned semester schedulesn.
               </p>
 
 
@@ -43,7 +43,7 @@ export default function Home() {
                       <ShieldAlert className="w-8 h-8 text-primary" />
                       <h3 className="font-bold text-lg text-white">Sign In</h3>
                       <p className="text-xs text-base-content/60">
-                        Log into your dashboard to access schedules or manage system resources [cite: 106].
+                        Log into your dashboard to access schedules or manage system resources.
                       </p>
                     </div>
                     <Link
@@ -80,8 +80,6 @@ export default function Home() {
             </div>
           </div>
         </main>
-
-        <Footer />
       </div>
     </>
   );

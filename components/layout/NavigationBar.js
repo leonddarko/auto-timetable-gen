@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
-import { CalendarDays, LayoutDashboard, ShieldCheck, User, LogOut } from "lucide-react";
+import { CalendarDays, LayoutDashboard, ShieldCheck, User, LogOut, UserPlus } from "lucide-react";
 
 export default function NavigationBar() {
   const { data: session } = useSession(); // Removed { required: true } to prevent forcing redirect on public homepage
@@ -79,7 +79,7 @@ export default function NavigationBar() {
                     <Link
                       href="/dashboard"
                       className={`flex items-center gap-3 rounded-xl py-2.5 ${
-                        pathname === "/dashboard" ? "active bg-primary text-white" : "text-neutral"
+                        pathname === "/dashboard" ? "active bg-primary text-white" : "text-gray-500"
                       }`}
                     >
                       <LayoutDashboard className="w-4 h-4" />
@@ -89,17 +89,28 @@ export default function NavigationBar() {
                 )}
 
                 {session.user?.role === "admin" && (
-                  <li>
+                  <>
+                    <li>
                     <Link
                       href="/admin"
-                      className={`flex items-center gap-3 rounded-xl py-2.5 ${
-                        pathname === "/admin" ? "active bg-primary text-white" : "text-neutral"
-                      }`}
+                      className={`flex items-center gap-3 rounded-xl py-2.5
+                      ${pathname === "/admin" ? "active bg-primary text-white" : "text-gray-500"}`}
                     >
                       <ShieldCheck className="w-4 h-4" />
                       <span className="font-medium">Admin Dashboard</span>
                     </Link>
                   </li>
+                  <li>
+                    <Link
+                      href="/sign-up"
+                      className={`flex items-center gap-3 rounded-xl py-2.5
+                      ${pathname === "/sign-up" ? "active bg-primary text-white" : "text-gray-500"}`}
+                    >
+                      <UserPlus className="w-4 h-4" />
+                      <span className="font-medium">Sign up user</span>
+                    </Link>
+                  </li>
+                  </>
                 )}
 
                 {/* App Sign Out Action Trigger */}

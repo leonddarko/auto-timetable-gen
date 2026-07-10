@@ -3,6 +3,7 @@ import "./globals.css";
 
 import { getServerSession } from "next-auth";
 import SessionProvider from "@/lib/SessionProvider";
+import Footer from "@/components/layout/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,6 +32,7 @@ export default async function RootLayout({ children }) {
         <SessionProvider session={session}>
           {children}
         </SessionProvider>
+        <Footer />
       </body>
     </html>
   );

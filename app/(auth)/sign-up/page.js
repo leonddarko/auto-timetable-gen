@@ -21,18 +21,18 @@ export default function SignupPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // 🚀 Redirect based on user schema role if already logged in
-      useEffect(() => {
-          if (status === "authenticated" && session?.user) {
-              if (session.user.role === "admin") {
-                  router.push("/");
-                  // router.push("/admin");
-              } else {
-                  router.push("/");
-                  // router.push("/dashboard"); // Redirect lecturers to their specific timetable dashboard
-              }
-          }
-      }, [status, session, router]);
+  // // 🚀 Redirect based on user schema role if already logged in
+  //     useEffect(() => {
+  //         if (status === "authenticated" && session?.user) {
+  //             if (session.user.role === "admin") {
+  //                 // router.push("/");
+  //                 router.push("/admin");
+  //             } else {
+  //                 // router.push("/");
+  //                 router.push("/dashboard"); // Redirect lecturers to their specific timetable dashboard
+  //             }
+  //         }
+  //     }, [status, session, router]);
 
   const handleChange = (e) => {
     setForm({
@@ -82,7 +82,7 @@ export default function SignupPage() {
       {/* Back to Home Button Link */}
       <Link 
         href="/" 
-        className="absolute top-6 left-6 btn btn-ghost gap-2 rounded-full text-black"
+        className="absolute top-6 left-6 btn btn-ghost gap-2 rounded-full text-gray-500"
       >
         <ArrowLeft className="w-4 h-4" />
         Back to Home
@@ -147,7 +147,7 @@ export default function SignupPage() {
           {/* System Role Selector */}
           <div className="form-control w-full">
             <label className="label py-1">
-              <span className="label-text font-semibold text-neutral">Portal Role</span>
+              <span className="label-text font-semibold text-white">Portal Role</span>
             </label>
             <select
               name="role"
@@ -164,7 +164,7 @@ export default function SignupPage() {
           {form.role === "lecturer" && (
             <div className="form-control w-full animate-fadeIn">
               <label className="label py-1">
-                <span className="label-text font-semibold text-neutral">Assigned Department</span>
+                <span className="label-text font-semibold text-white">Assigned Department</span>
               </label>
               <input
                 type="text"

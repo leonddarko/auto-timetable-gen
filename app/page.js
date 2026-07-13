@@ -24,8 +24,12 @@ export default function Home() {
                 <CalendarDays className="w-16 h-16" />
               </div>
 
+              <p className="max-w-md text-sm text-base-content/70">
+                Faculty of Electrical and Computer Engineering
+              </p>
+
               <h1 className="text-4xl font-extrabold tracking-tight text-white mb-2">
-                Automated Departmental Timetable Portal
+                Automated Timetable Portal
               </h1>
 
               <p className="max-w-md text-sm text-base-content/70 mb-8">

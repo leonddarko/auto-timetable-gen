@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
 import { CalendarDays, LayoutDashboard, ShieldCheck, User, LogOut, UserPlus } from "lucide-react";
+import Image from "next/image";
 
 export default function NavigationBar() {
   const { data: session } = useSession(); // Removed { required: true } to prevent forcing redirect on public homepage
@@ -19,24 +20,31 @@ export default function NavigationBar() {
 
   return (
     <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-base-100/95 backdrop-blur-md shadow-md border-b border-base-200"
-          : "bg-transparent shadow-none"
-      }`}
+      className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled
+        ? "bg-base-100/95 backdrop-blur-md shadow-md border-b border-base-200"
+        : "bg-transparent shadow-none"
+        }`}
     >
-      <div className={`flex justify-between items-center px-6 md:px-10 transition-all duration-300 ${
-        scrolled ? "py-3" : "py-5"
-      }`}>
-        
+      <div className={`flex justify-between items-center px-6 md:px-10 transition-all duration-300 ${scrolled ? "py-3" : "py-5"
+        }`}>
+
         {/* Logo Branding */}
         <Link href="/">
           <div className="flex items-center gap-3 cursor-pointer group">
-            <div className="bg-primary/10 p-2 rounded-xl text-primary transition-colors group-hover:bg-primary/20">
-              <CalendarDays className="w-5 h-5" />
+            <div className="bg-white/10 p-2 rounded-xl text-primary transition-colors group-hover:bg-white/20">
+              {/* <CalendarDays className="w-5 h-5" /> */}
+
+              <Image
+                className=""
+                src="/images/KNUST_logo.png"
+                alt="KNUST logo"
+                width={25}
+                height={50}
+                priority
+              />
             </div>
             <span className="text-base md:text-lg font-black text-white tracking-tight">
-              Auto Timetable
+              KNUST, Elec. & Comp. Eng. 
             </span>
           </div>
         </Link>
@@ -78,9 +86,8 @@ export default function NavigationBar() {
                   <li>
                     <Link
                       href="/dashboard"
-                      className={`flex items-center gap-3 rounded-xl py-2.5 ${
-                        pathname === "/dashboard" ? "active bg-primary text-white" : "text-gray-500"
-                      }`}
+                      className={`flex items-center gap-3 rounded-xl py-2.5 ${pathname === "/dashboard" ? "active bg-primary text-white" : "text-gray-500"
+                        }`}
                     >
                       <LayoutDashboard className="w-4 h-4" />
                       <span className="font-medium">Lecturer Dashboard</span>
@@ -91,25 +98,25 @@ export default function NavigationBar() {
                 {session.user?.role === "admin" && (
                   <>
                     <li>
-                    <Link
-                      href="/admin"
-                      className={`flex items-center gap-3 rounded-xl py-2.5
+                      <Link
+                        href="/admin"
+                        className={`flex items-center gap-3 rounded-xl py-2.5
                       ${pathname === "/admin" ? "active bg-primary text-white" : "text-gray-500"}`}
-                    >
-                      <ShieldCheck className="w-4 h-4" />
-                      <span className="font-medium">Admin Dashboard</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/sign-up"
-                      className={`flex items-center gap-3 rounded-xl py-2.5
+                      >
+                        <ShieldCheck className="w-4 h-4" />
+                        <span className="font-medium">Admin Dashboard</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        href="/sign-up"
+                        className={`flex items-center gap-3 rounded-xl py-2.5
                       ${pathname === "/sign-up" ? "active bg-primary text-white" : "text-gray-500"}`}
-                    >
-                      <UserPlus className="w-4 h-4" />
-                      <span className="font-medium">Sign up user</span>
-                    </Link>
-                  </li>
+                      >
+                        <UserPlus className="w-4 h-4" />
+                        <span className="font-medium">Sign up user</span>
+                      </Link>
+                    </li>
                   </>
                 )}
 

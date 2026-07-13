@@ -189,7 +189,7 @@ export default function LecturerDashboard() {
                                                 </div>
                                                 <div className="space-y-1">
                                                     <h3 className="text-lg font-black text-white tracking-tight flex items-center gap-2">
-                                                        <BookOpen className="w-4 h-4 text-secondary shrink-0" />
+                                                        <BookOpen className="w-4 h-4 text-red-800 shrink-0" />
                                                         {slot.courseId?.code}
                                                     </h3>
                                                     <p className="text-sm font-medium text-base-content/70 leading-snug">

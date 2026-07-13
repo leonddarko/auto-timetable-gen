@@ -90,8 +90,8 @@ export default function SignupPage() {
 
       <div className="card w-full max-w-md bg-base-100 shadow-xl border border-base-300 rounded-3xl p-6 md:p-8">
         <div className="flex flex-col items-center mb-6">
-          <div className="bg-secondary/10 p-3 rounded-full text-secondary mb-2">
-            <UserPlus className="w-8 h-8" />
+          <div className="bg-red-800/10 p-3 rounded-full text-secondary mb-2">
+            <UserPlus className="w-8 h-8 text-red-800" />
           </div>
           <h2 className="text-3xl font-extrabold text-white text-center">Create Account</h2>
           <p className="text-xs text-base-content/60 mt-1">Configure your portal credentials</p>
@@ -182,7 +182,7 @@ export default function SignupPage() {
           <button
             type="submit"
             disabled={loading}
-            className="btn btn-secondary btn-block rounded-xl mt-2 text-white font-bold"
+            className="btn btn-ghost bg-red-800  btn-block rounded-full mt-2 text-white font-bold"
           >
             {loading ? (
               <span className="flex justify-center items-center gap-2">
@@ -197,7 +197,7 @@ export default function SignupPage() {
 
         <p className="text-sm text-base-content/70 mt-6 text-center">
           Already have an account?{" "}
-          <Link href="/sign-in" className="text-secondary font-semibold hover:underline">
+          <Link href="/sign-in" className="text-red-800 font-semibold hover:underline">
             Sign in
           </Link>
         </p>

@@ -62,7 +62,7 @@ export default function Home() {
                   {/* Temporary Sign Up Option */}
                   <div className="flex flex-col justify-between items-center p-6 border border-base-200 rounded-3xl bg-base-50 hover:shadow-md transition">
                     <div className="flex flex-col items-center gap-2 mb-4">
-                      <UserPlus className="w-8 h-8 text-secondary" />
+                      <UserPlus className="w-8 h-8 text-red-800" />
                       <h3 className="font-bold text-lg text-white">Sign Up</h3>
                       <p className="text-xs text-base-content/60">
                         Create an administrative account to configure the departmental database.
@@ -70,7 +70,7 @@ export default function Home() {
                     </div>
                     <Link
                       href="/sign-up"
-                      className="btn btn-secondary btn-block rounded-full gap-2"
+                      className="btn btn-ghost btn-block bg-red-800 rounded-full gap-2"
                     >
                       <UserPlus className="w-4 h-4" />
                       Sign Up

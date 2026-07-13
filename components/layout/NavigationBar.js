@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
-import { CalendarDays, LayoutDashboard, ShieldCheck, User, LogOut, UserPlus } from "lucide-react";
+import { CalendarDays, LayoutDashboard, ShieldCheck, User, LogOut, UserPlus, LogIn } from "lucide-react";
 import Image from "next/image";
 
 export default function NavigationBar() {
@@ -44,7 +44,7 @@ export default function NavigationBar() {
               />
             </div>
             <span className="text-base md:text-lg font-black text-white tracking-tight">
-              KNUST, Elec. & Comp. Eng. 
+              KNUST, Elec. & Comp. Eng.
             </span>
           </div>
         </Link>
@@ -77,7 +77,7 @@ export default function NavigationBar() {
                   {session.user?.role === "admin" ? (
                     <ShieldCheck className="w-5 h-5 text-success" />
                   ) : (
-                    <User className="w-5 h-5 text-info" />
+                    <User className="w-5 h-5 text-primary" />
                   )}
                 </div>
 
@@ -140,7 +140,7 @@ export default function NavigationBar() {
               href="/sign-in"
               className="btn btn-primary btn-sm md:btn-md rounded-full px-6 text-white font-semibold shadow-sm"
             >
-              Sign In
+              <LogIn className="w-4 h-4 " />
             </Link>
           )}
         </div>

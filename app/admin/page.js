@@ -120,7 +120,7 @@ export default function AdminDashboard() {
                         <button
                             onClick={triggerAutoGenerator}
                             disabled={generating || courses.length === 0 || venues.length === 0}
-                            className="btn btn-secondary text-white rounded-xl gap-2 font-bold shadow-md shadow-secondary/20"
+                            className="btn btn-ghost text-white rounded-full bg-red-500 gap-2 font-bold shadow-md shadow-red-800/20"
                         >
                             <Sparkles className="w-5 h-5 animate-pulse" />
                             {generating ? "Generating Slots..." : "Generate Timetable"}
@@ -134,7 +134,7 @@ export default function AdminDashboard() {
                             <div><div className="text-xs text-base-content/50 font-bold uppercase">Lecturers</div><div className="text-2xl font-black text-white">{lecturers.length}</div></div>
                         </div>
                         <div className="bg-base-100 border border-base-300 p-4 rounded-2xl flex items-center gap-4 shadow-sm">
-                            <div className="bg-secondary/10 p-3 rounded-xl text-secondary"><BookOpen /></div>
+                            <div className="bg-red-500/10 p-3 rounded-xl text-secondary"><BookOpen className=" text-red-500" /></div>
                             <div><div className="text-xs text-base-content/50 font-bold uppercase">Courses</div><div className="text-2xl font-black text-white">{courses.length}</div></div>
                         </div>
                         <div className="bg-base-100 border border-base-300 p-4 rounded-2xl flex items-center gap-4 shadow-sm">

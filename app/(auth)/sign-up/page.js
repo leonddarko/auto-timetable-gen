@@ -77,24 +77,24 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-base-200 font-sans text-base-content px-6 relative">
-      
+    <div className="min-h-screen flex items-center justify-center bg-white font-sans text-base-content px-6 relative">
+
       {/* Back to Home Button Link */}
-      <Link 
-        href="/" 
-        className="absolute top-6 left-6 btn btn-ghost gap-2 rounded-full text-gray-500"
+      <Link
+        href="/"
+        className="absolute top-6 left-6 btn btn-ghost bg-white shadow-none hover:bg-gray-100 border-0 gap-2 normal-case rounded-full text-black"
       >
         <ArrowLeft className="w-4 h-4" />
         Back to Home
       </Link>
 
-      <div className="card w-full max-w-md bg-base-100 shadow-xl border border-base-300 rounded-3xl p-6 md:p-8">
+      <div className="card w-full max-w-md bg-gray-200 shadow-xl rounded-3xl p-6 md:p-8">
         <div className="flex flex-col items-center mb-6">
           <div className="bg-red-800/10 p-3 rounded-full text-secondary mb-2">
             <UserPlus className="w-8 h-8 text-red-800" />
           </div>
-          <h2 className="text-3xl font-extrabold text-white text-center">Create Account</h2>
-          <p className="text-xs text-base-content/60 mt-1">Configure your portal credentials</p>
+          <h2 className="text-3xl font-extrabold text-black text-center">Create Account</h2>
+          <p className="text-xs text-black/50 mt-1">Configure your portal credentials</p>
         </div>
 
         {error && (
@@ -104,7 +104,7 @@ export default function SignupPage() {
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          
+
           {/* Full Name Input */}
           <div className="form-control">
             <input
@@ -113,7 +113,7 @@ export default function SignupPage() {
               placeholder="Full Name"
               value={form.name}
               onChange={handleChange}
-              className="input input-bordered w-full bg-base-50 text-base-content rounded-xl focus:outline-primary"
+              className="input input-bordered w-full bg-black/90 text-base-content rounded-xl focus:outline-primary"
               required
             />
           </div>
@@ -126,7 +126,7 @@ export default function SignupPage() {
               placeholder="Email Address"
               value={form.email}
               onChange={handleChange}
-              className="input input-bordered w-full bg-base-50 text-base-content rounded-xl focus:outline-primary"
+              className="input input-bordered w-full bg-black/90 text-base-content rounded-xl focus:outline-primary"
               required
             />
           </div>
@@ -139,7 +139,7 @@ export default function SignupPage() {
               placeholder="Password"
               value={form.password}
               onChange={handleChange}
-              className="input input-bordered w-full bg-base-50 text-base-content rounded-xl focus:outline-primary"
+              className="input input-bordered w-full bg-black/90 text-base-content rounded-xl focus:outline-primary"
               required
             />
           </div>
@@ -147,13 +147,13 @@ export default function SignupPage() {
           {/* System Role Selector */}
           <div className="form-control w-full">
             <label className="label py-1">
-              <span className="label-text font-semibold text-white">Portal Role</span>
+              <span className="label-text font-semibold text-black">Portal Role</span>
             </label>
             <select
               name="role"
               value={form.role}
               onChange={handleChange}
-              className="select select-bordered w-full bg-base-50 text-base-content rounded-xl focus:outline-primary"
+              className="select select-bordered w-full bg-black/90 text-base-content rounded-xl focus:outline-primary"
             >
               <option value="admin">Department Secretary (Admin)</option>
               <option value="lecturer">Lecturer</option>
@@ -195,7 +195,7 @@ export default function SignupPage() {
           </button>
         </form>
 
-        <p className="text-sm text-base-content/70 mt-6 text-center">
+        <p className="text-xs text-black/50 mt-6 text-center">
           Already have an account?{" "}
           <Link href="/sign-in" className="text-red-800 font-semibold hover:underline">
             Sign in

@@ -44,7 +44,7 @@ export default function LecturerDashboard() {
         return (
             <div className="min-h-screen bg-base-200 flex items-center justify-center">
                 <div className="flex flex-col items-center gap-4">
-                    <span className="loading loading-spinner loading-lg text-primary"></span>
+                    <span className="loading loading-spinner loading-lg text-red-400"></span>
                     <p className="text-sm font-semibold text-base-content/60 animate-pulse">Assembling personal calendar grid...</p>
                 </div>
             </div>
@@ -54,34 +54,34 @@ export default function LecturerDashboard() {
     return (
         <>
             <NavigationBar />
-            <div className="min-h-screen bg-base-200 pt-24 px-4 md:px-10 pb-12 font-sans">
+            <div className="min-h-screen bg-white pt-24 px-4 md:px-10 pb-12 font-sans">
                 <div className="max-w-7xl mx-auto space-y-6">
 
                     {/* Profile Introduction Greeting Header Banner card */}
-                    <div className="bg-base-100 p-6 rounded-3xl border border-base-300 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div className="bg-gray-200 p-6 rounded-3xl shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                         <div>
-                            <div className="flex items-center gap-2 text-primary font-bold text-sm tracking-wide uppercase mb-1">
+                            <div className="flex items-center gap-2 text-black/50 font-bold text-sm tracking-wide uppercase mb-1">
                                 <GraduationCap className="w-4 h-4" /> Instructor Dashboard
                             </div>
-                            <h1 className="text-3xl font-black text-white">
+                            <h1 className="text-3xl font-black text-black">
                                 Welcome back, {session?.user?.name || "Lecturer"}
                             </h1>
-                            <p className="text-sm text-base-content/60 mt-0.5">
+                            <p className="text-sm text-black mt-0.5">
                                 Review your scheduled 2-hour teaching slots for the current semester pool.
                             </p>
                         </div>
 
                         {/* Toggle buttons controlling view modes display variants layout selection triggers */}
-                        <div className="join bg-base-200 p-1 rounded-xl border border-base-300">
+                        <div className="join bg-gray-300 p-1 rounded-full border-none">
                             <button
                                 onClick={() => setViewMode("grid")}
-                                className={`join-item btn btn-sm rounded-lg font-bold border-none ${viewMode === "grid" ? "bg-primary text-white" : "btn-ghost text-base-content/70"}`}
+                                className={`join-item btn btn-sm rounded-full font-bold border-none ${viewMode === "grid" ? "bg-primary text-white" : "btn-ghost text-black/70"}`}
                             >
                                 Weekly Grid
                             </button>
                             <button
                                 onClick={() => setViewMode("list")}
-                                className={`join-item btn btn-sm rounded-lg font-bold border-none ${viewMode === "list" ? "bg-primary text-white" : "btn-ghost text-base-content/70"}`}
+                                className={`join-item btn btn-sm rounded-full font-bold border-none hover:bg-gray-200 ${viewMode === "list" ? "bg-primary text-white" : "btn-ghost text-black/70"}`}
                             >
                                 Agenda List
                             </button>
@@ -111,14 +111,14 @@ export default function LecturerDashboard() {
                         <>
                             {/* VIEW RENDER MODE A: DYNAMIC SEMESTER MATRIX CALENDAR GRID */}
                             {viewMode === "grid" && (
-                                <div className="bg-base-100 border border-base-300 rounded-3xl shadow-sm overflow-hidden">
+                                <div className="bg-gray-100 border border-base-300 rounded-3xl shadow-sm overflow-hidden">
                                     <div className="overflow-x-auto">
                                         <table className="table table-fixed w-full min-w-[800px] border-collapse">
 
                                             {/* Week headers timeline top tracks row */}
                                             <thead>
-                                                <tr className="bg-base-200 border-b border-base-300 text-white font-black text-sm">
-                                                    <th className="w-40 py-4 text-center border-r border-base-300 bg-base-200/50">Time Period</th>
+                                                <tr className="bg-gray-200 border-b border-base-300 text-black font-black text-sm">
+                                                    <th className="w-40 py-4 text-center border-r border-base-300 bg-gray-200/50">Time Period</th>
                                                     {DAYS_OF_WEEK.map((day) => (
                                                         <th key={day} className="text-center py-4">{day}</th>
                                                     ))}
@@ -130,7 +130,7 @@ export default function LecturerDashboard() {
                                                 {TIME_PERIODS.map((period) => (
                                                     <tr key={period} className="border-b border-base-200 hover:bg-transparent">
                                                         {/* Y-Axis Row labels displaying designated hours bounds columns */}
-                                                        <td className="font-bold text-white text-xs bg-base-200/20 text-center py-6 border-r border-base-300 flex flex-col justify-center items-center gap-1">
+                                                        <td className="font-bold text-black/50 text-xs bg-gray-200/20 text-center py-6 border-r border-base-300 flex flex-col justify-center items-center gap-1">
                                                             <Clock className="w-3.5 h-3.5 text-primary" />
                                                             {period}
                                                         </td>
@@ -146,17 +146,17 @@ export default function LecturerDashboard() {
                                                                                 <div className="font-black text-primary text-sm tracking-tight truncate">
                                                                                     {slot.courseId?.code}
                                                                                 </div>
-                                                                                <div className="text-xs font-bold text-white line-clamp-2 mt-0.5 leading-tight">
+                                                                                <div className="text-xs font-bold text-black/50 line-clamp-2 mt-0.5 leading-tight">
                                                                                     {slot.courseId?.title}
                                                                                 </div>
                                                                             </div>
-                                                                            <div className="flex items-center gap-1 text-[11px] font-medium text-base-content/60 bg-base-200/60 w-fit px-2 py-0.5 rounded-md mt-2">
+                                                                            <div className="flex items-center gap-1 text-[11px] font-medium text-base-content/60 bg-black/90 w-fit px-2 py-0.5 rounded-md mt-2">
                                                                                 <MapPin className="w-3 h-3 text-accent shrink-0" />
                                                                                 <span className="truncate max-w-[90px]">{slot.venueId?.name}</span>
                                                                             </div>
                                                                         </div>
                                                                     ) : (
-                                                                        <div className="w-full h-full rounded-xl border border-dashed border-base-300/60 bg-base-100 flex items-center justify-center text-[10px] uppercase font-bold text-base-content/20 tracking-wider">
+                                                                        <div className="w-full h-full rounded-xl border border-dashed border-base-300/60 bg-gray-100 flex items-center justify-center text-[10px] uppercase font-bold text-black/50 tracking-wider">
                                                                             Free
                                                                         </div>
                                                                     )}
@@ -178,7 +178,7 @@ export default function LecturerDashboard() {
                                     {schedule.map((slot) => (
                                         <div
                                             key={slot._id}
-                                            className="bg-base-100 border border-base-300 p-5 rounded-2xl shadow-sm flex flex-col justify-between space-y-4 hover:border-primary/40 transition-colors"
+                                            className="bg-gray-200 p-5 rounded-2xl shadow-sm flex flex-col justify-between space-y-4 hover:border-primary/40 transition-colors"
                                         >
                                             <div className="space-y-2">
                                                 <div className="flex justify-between items-center">
@@ -188,17 +188,17 @@ export default function LecturerDashboard() {
                                                     </span>
                                                 </div>
                                                 <div className="space-y-1">
-                                                    <h3 className="text-lg font-black text-white tracking-tight flex items-center gap-2">
+                                                    <h3 className="text-lg font-black text-black tracking-tight flex items-center gap-2">
                                                         <BookOpen className="w-4 h-4 text-red-800 shrink-0" />
                                                         {slot.courseId?.code}
                                                     </h3>
-                                                    <p className="text-sm font-medium text-base-content/70 leading-snug">
+                                                    <p className="text-sm font-medium text-black/50 leading-snug">
                                                         {slot.courseId?.title}
                                                     </p>
                                                 </div>
                                             </div>
 
-                                            <div className="pt-3 border-t border-base-200 flex justify-between items-center text-xs">
+                                            <div className="pt-3 flex justify-between items-center text-xs">
                                                 <div className="flex items-center gap-1.5 font-bold text-gray-500">
                                                     <MapPin className="w-4 h-4 text-accent shrink-0" />
                                                     <span>Venue: {slot.venueId?.name}</span>

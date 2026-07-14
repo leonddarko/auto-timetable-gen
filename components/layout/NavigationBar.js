@@ -21,7 +21,7 @@ export default function NavigationBar() {
   return (
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled
-        ? "bg-base-100/95 backdrop-blur-md shadow-md border-b border-base-200"
+        ? "bg-white/50 backdrop-blur-md shadow-sm border-b border-gray-200"
         : "bg-transparent shadow-none"
         }`}
     >
@@ -43,7 +43,7 @@ export default function NavigationBar() {
                 priority
               />
             </div>
-            <span className="text-base md:text-lg font-black text-white tracking-tight">
+            <span className="text-base md:text-lg font-black text-black tracking-tight">
               KNUST, Elec. & Comp. Eng.
             </span>
           </div>
@@ -56,9 +56,9 @@ export default function NavigationBar() {
               {/* Profile Avatar Trigger Button */}
               <label
                 tabIndex={0}
-                className="btn btn-ghost btn-circle avatar placeholder bg-primary/10 border border-primary/20 hover:bg-primary/20 transition-all"
+                className="btn btn-ghost btn-circle avatar placeholder bg-gray-400/10 border border-none hover:bg-gray-400/20 transition-all"
               >
-                <div className="text-primary font-bold text-xs uppercase">
+                <div className="text-black font-bold text-xs uppercase">
                   {session.user?.name ? session.user.name.substring(0, 2) : "US"}
                 </div>
               </label>
@@ -66,18 +66,18 @@ export default function NavigationBar() {
               {/* Profile Context Dropdown List */}
               <div
                 tabIndex={0}
-                className="dropdown-content menu p-2 shadow-lg bg-base-100 rounded-2xl w-72 mt-2 border border-base-200 animate-fadeIn"
+                className="dropdown-content menu p-2 shadow-md bg-gray-100 rounded-2xl w-72 mt-2 border border-base-50 animate-fadeIn"
               >
                 {/* User Info Header Block */}
-                <div className="flex justify-between items-center px-4 py-3 border-b border-base-200 mb-1">
+                <div className="flex justify-between items-center px-4 py-3 border-b border-black/20 mb-1">
                   <div className="max-w-[80%]">
-                    <div className="font-bold text-primary truncate">{session.user?.name}</div>
-                    <div className="text-xs text-base-content/60 truncate">{session.user?.email}</div>
+                    <div className="font-bold text-yellow-400 truncate">{session.user?.name}</div>
+                    <div className="text-xs text-gray-800 truncate">{session.user?.email}</div>
                   </div>
                   {session.user?.role === "admin" ? (
                     <ShieldCheck className="w-5 h-5 text-success" />
                   ) : (
-                    <User className="w-5 h-5 text-primary" />
+                    <User className="w-5 h-5 text-success" />
                   )}
                 </div>
 
@@ -86,7 +86,7 @@ export default function NavigationBar() {
                   <li>
                     <Link
                       href="/dashboard"
-                      className={`flex items-center gap-3 rounded-xl py-2.5 ${pathname === "/dashboard" ? "active bg-primary text-white" : "text-gray-500"
+                      className={`flex items-center gap-3 rounded-xl py-2.5 ${pathname === "/dashboard" ? "active bg-yellow-50 text-black" : "text-gray-500"
                         }`}
                     >
                       <LayoutDashboard className="w-4 h-4" />
@@ -101,7 +101,7 @@ export default function NavigationBar() {
                       <Link
                         href="/admin"
                         className={`flex items-center gap-3 rounded-xl py-2.5
-                      ${pathname === "/admin" ? "active bg-primary text-white" : "text-gray-500"}`}
+                      ${pathname === "/admin" ? "active bg-yellow-50 text-black" : "text-gray-500"}`}
                       >
                         <ShieldCheck className="w-4 h-4" />
                         <span className="font-medium">Admin Dashboard</span>
@@ -111,7 +111,7 @@ export default function NavigationBar() {
                       <Link
                         href="/sign-up"
                         className={`flex items-center gap-3 rounded-xl py-2.5
-                      ${pathname === "/sign-up" ? "active bg-primary text-white" : "text-gray-500"}`}
+                      ${pathname === "/sign-up" ? "active bg-yellow-50 text-black" : "text-gray-500"}`}
                       >
                         <UserPlus className="w-4 h-4" />
                         <span className="font-medium">Sign up user</span>
@@ -121,7 +121,7 @@ export default function NavigationBar() {
                 )}
 
                 {/* App Sign Out Action Trigger */}
-                <div className="border-t border-base-200 mt-1 pt-1">
+                <div className="border-t  border-black/20 mt-1 pt-1">
                   <li>
                     <button
                       onClick={() => signOut({ callbackUrl: "/" })}
@@ -138,7 +138,7 @@ export default function NavigationBar() {
             // Public Session Visitor Link Block
             <Link
               href="/sign-in"
-              className="btn btn-primary btn-sm md:btn-md rounded-full px-6 text-white font-semibold shadow-sm"
+              className="btn bg-yellow-400 btn-sm md:btn-md rounded-full px-6 text-black font-semibold shadow-sm border-0"
             >
               <LogIn className="w-4 h-4 " />
             </Link>

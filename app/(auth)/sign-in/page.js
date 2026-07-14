@@ -69,24 +69,24 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-base-200 font-sans text-base-content px-6 relative">
+        <div className="min-h-screen flex items-center justify-center bg-white font-sans text-base-content px-6 relative">
             
             {/* Back to Home Navigation anchor */}
             <Link 
                 href="/" 
-                className="absolute top-6 left-6 btn btn-ghost gap-2 normal-case rounded-full text-gray-500"
+                className="absolute top-6 left-6 btn btn-ghost bg-white shadow-none hover:bg-gray-100 border-0 gap-2 normal-case rounded-full text-black"
             >
                 <ArrowLeft className="w-4 h-4" />
                 Back to Home
             </Link>
 
-            <div className="card w-full max-w-md bg-base-100 shadow-xl border border-base-300 rounded-3xl p-6 md:p-8">
+            <div className="card w-full max-w-md bg-gray-200 shadow-xl rounded-3xl p-6 md:p-8">
                 <div className="flex flex-col items-center mb-6">
-                    <div className="bg-primary/10 p-3 rounded-full text-primary mb-2">
+                    <div className="bg-yellow-400/10 p-3 rounded-full text-yellow-400 mb-2">
                         <LogIn className="w-8 h-8" />
                     </div>
-                    <h2 className="text-3xl font-extrabold text-white text-center">Welcome Back</h2>
-                    <p className="text-xs text-base-content/60 mt-1">Sign in to access your timetable portal</p>
+                    <h2 className="text-3xl font-extrabold text-black text-center">Welcome Back</h2>
+                    <p className="text-xs text-black/50 mt-1">Sign in to access your timetable portal</p>
                 </div>
 
                 {error && (
@@ -104,7 +104,7 @@ export default function LoginPage() {
                             placeholder="Email Address"
                             value={form.email}
                             onChange={handleChange}
-                            className="input input-bordered w-full bg-base-50 text-base-content rounded-xl focus:outline-primary"
+                            className="input input-bordered w-full bg-black/90 text-base-content rounded-xl focus:outline-primary"
                             required
                         />
                     </div>
@@ -117,7 +117,7 @@ export default function LoginPage() {
                             placeholder="Password"
                             value={form.password}
                             onChange={handleChange}
-                            className="input input-bordered w-full bg-base-50 text-base-content rounded-xl focus:outline-primary"
+                            className="input input-bordered w-full bg-black/90 text-base-content rounded-xl focus:outline-primary"
                             required
                         />
                     </div>
@@ -126,7 +126,7 @@ export default function LoginPage() {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="btn btn-primary btn-block rounded-xl mt-2 text-white font-bold"
+                        className="btn btn-ghost bg-yellow-400 btn-block rounded-xl border-0 mt-2 text-white font-bold"
                     >
                         {loading ? (
                             <span className="flex justify-center items-center gap-2">
@@ -140,9 +140,9 @@ export default function LoginPage() {
                 </form>
 
                 {/* Account Switcher Meta Context */}
-                <p className="text-sm text-base-content/70 mt-6 text-center">
+                <p className="text-sm text-black/50 mt-6 text-center">
                     Don’t have an account?{" "}
-                    <Link href="/sign-up" className="text-primary font-semibold hover:underline">
+                    <Link href="/sign-up" className="text-yellow-400 font-semibold hover:underline">
                         Sign Up
                     </Link>
                 </p>

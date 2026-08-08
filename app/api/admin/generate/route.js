@@ -7,6 +7,16 @@ import Timetable from "@/models/Timetable";
 const WORKING_DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 const STANDARD_PERIODS = ["08:00 - 10:00", "10:00 - 12:00", "13:00 - 15:00", "15:00 - 17:00"];
 
+// 🎲 Helper function: Fisher-Yates Array Shuffle
+function shuffleArray(array) {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
+
 export async function GET() {
   try {
     await connectDB();
@@ -23,7 +33,7 @@ export async function POST() {
   try {
     await connectDB();
 
-    // 1. Flush existing master schedule constraints clean
+    // 1. Flush existing schedule records clean
     await Timetable.deleteMany({});
 
     // 2. Fetch required asset pools
@@ -31,78 +41,97 @@ export async function POST() {
     const venues = await Venue.find();
 
     if (courses.length === 0 || venues.length === 0) {
-      return NextResponse.json({ message: "Please build courses and venues pools first." }, { status: 400 });
+      return NextResponse.json(
+        { message: "Please build courses and venues pools first." },
+        { status: 400 }
+      );
     }
 
+    // Optional: Shuffle course processing order so one course doesn't always get priority
+    const shuffledCourses = shuffleArray(courses);
     const allocatedSlots = [];
 
-    // 3. Process every course element sequentially
-    for (const course of courses) {
-      // Calculate how many distinct 2-hour block entries must be mapped (e.g. 3 hours total = 2 blocks round-up)
+    // 3. Process each course
+    for (const course of shuffledCourses) {
       const sessionsNeeded = Math.ceil(course.weeklyHours / 2);
       let sessionsScheduled = 0;
 
-      // Scan standard time configurations safely looking for a conflict-free match
-      for (const day of WORKING_DAYS) {
+      // 🎲 RANDOMIZATION STEP: Shuffle the days, periods, and venues for EVERY session attempt!
+      const randomDays = shuffleArray(WORKING_DAYS);
+      const randomPeriods = shuffleArray(STANDARD_PERIODS);
+      const randomVenues = shuffleArray(venues);
+
+      // Search across randomized days, periods, and rooms
+      for (const day of randomDays) {
         if (sessionsScheduled >= sessionsNeeded) break;
 
-        for (const period of STANDARD_PERIODS) {
+        for (const period of randomPeriods) {
           if (sessionsScheduled >= sessionsNeeded) break;
 
-          for (const venue of venues) {
-            
-            // Check constraint clash rules
-            const hasConflict = allocatedSlots.some(slot => {
+          for (const venue of randomVenues) {
+
+            // 4. Check the 3 Safety Rules
+            const hasConflict = allocatedSlots.some((slot) => {
               const isSameTime = slot.day === day && slot.period === period;
               if (!isSameTime) return false;
 
-              // Collision Rule A: Classroom is already booked
+              // Rule A: Venue double-booking
               const venueClash = slot.venueId.toString() === venue._id.toString();
 
-              // Collision Rule B: Lecturer cannot be in two places at once
-              const lecturerClash = slot.lecturerId?.toString() === course.lecturer?._id?.toString();
+              // Rule B: Lecturer double-booking
+              const lecturerClash =
+                slot.lecturerId?.toString() === course.lecturer?._id?.toString();
 
-              // Collision Rule C: Student Year Group Level cannot have two concurrent classes
-              const studentGroupClash = slot.level === course.level && slot.department === course.department;
+              // Rule C: Student group double-booking
+              const studentGroupClash =
+                slot.level === course.level && slot.department === course.department;
 
               return venueClash || lecturerClash || studentGroupClash;
             });
 
-            // Safe block found: write slot memory reference pointers
+            // If no conflict exists, lock in the slot!
             if (!hasConflict) {
               allocatedSlots.push({
                 courseId: course._id,
                 venueId: venue._id,
                 day,
                 period,
-                // In-memory properties used to speed up loop conflict matching checks
                 lecturerId: course.lecturer?._id,
                 level: course.level,
                 department: course.department
               });
 
               sessionsScheduled++;
-              break; // Drop out of venue selection loop to schedule the next session on another day or period
+              break; // Move to the next session for this course
             }
           }
         }
       }
 
-      // Safeguard error catching check if parameters cannot satisfy schema constraints
+      // Fallback if tight constraints prevent full allocation
       if (sessionsScheduled < sessionsNeeded) {
-        return NextResponse.json({ 
-          message: `Incomplete schedule map. Could not satisfy allocation constraints safely for course: ${course.code}` 
-        }, { status: 422 });
+        return NextResponse.json(
+          {
+            message: `Could not fit course ${course.code} even with randomized search. Try adding more venues or time slots!`
+          },
+          { status: 422 }
+        );
       }
     }
 
-    // 4. Batch persist all validated schedule slots into MongoDB
+    // 5. Batch save all newly allocated slots
     await Timetable.insertMany(allocatedSlots);
 
-    return NextResponse.json({ message: "Timetable generated successfully", count: allocatedSlots.length }, { status: 201 });
+    return NextResponse.json(
+      { message: "Randomized timetable generated successfully!", count: allocatedSlots.length },
+      { status: 201 }
+    );
 
   } catch (error) {
     console.error("GENERATION ERROR:", error);
-    return NextResponse.json({ message: "Internal generation execution failure", error: error.message }, { status: 500 });
+    return NextResponse.json(
+      { message: "Internal generation failure", error: error.message },
+      { status: 500 }
+    );
   }
 }

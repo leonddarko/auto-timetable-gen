@@ -172,7 +172,7 @@ export default function AdminDashboard() {
                                         <div className="flex justify-between items-center"><h3 className="text-xl font-bold text-black">Registered Faculty Lecturers</h3></div>
                                         <p className="text-xs text-black/50">Lecturers join the platform using the explicit <b>Sign-Up Form</b> portal configuration view.</p>
                                         <div className="overflow-x-auto">
-                                            <table className="table table-zebra w-full">
+                                            <table className="table w-full">
                                                 <thead><tr className="text-black font-bold"><th>Name</th><th>Email Address</th><th>Assigned Department</th></tr></thead>
                                                 <tbody className="text-black">
                                                     {lecturers.map((lec) => (
@@ -255,7 +255,7 @@ export default function AdminDashboard() {
                                             <div className="text-center py-12 text-black/90">No schedules map allocated yet. Supply parameter constraints and click <b>Generate Timetable</b> above.</div>
                                         ) : (
                                             <div className="overflow-x-auto">
-                                                <table className="table table-zebra w-full">
+                                                <table className="table w-full">
                                                     <thead><tr className="text-black font-bold"><th>Day</th><th>Time Slot Period</th><th>Course Module</th><th>Assigned Venue</th><th>Instructor</th></tr></thead>
                                                     <tbody>
                                                         {timetables.map((slot) => (

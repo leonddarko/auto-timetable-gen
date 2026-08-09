@@ -1,13 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { User, BookOpen, MapPin, Calendar, Sparkles, Plus, Trash2 } from "lucide-react";
+import { User, BookOpen, MapPin, Calendar, Sparkles, Plus, Trash2, Download } from "lucide-react";
 import NavigationBar from "@/components/layout/NavigationBar";
 
 export default function AdminDashboard() {
     const [activeTab, setActiveTab] = useState("lecturers");
     const [loading, setLoading] = useState(false);
     const [generating, setGenerating] = useState(false);
+    const [downloading, setDownloading] = useState(false);
     const [message, setMessage] = useState({ text: "", type: "" });
 
     // Data pools State
@@ -48,6 +49,35 @@ export default function AdminDashboard() {
     const showMsg = (text, type = "success") => {
         setMessage({ text, type });
         setTimeout(() => setMessage({ text: "", type: "" }), 5000);
+    };
+
+    // Download Timetable as Excel spreadsheet file
+    const handleDownloadExcel = async () => {
+        setDownloading(true);
+        showMsg("Preparing Excel file...", "info");
+        try {
+            const res = await fetch("/api/admin/timetable/export");
+            if (!res.ok) {
+                const errData = await res.json();
+                throw new Error(errData.message || "Failed to download schedule file.");
+            }
+
+            const blob = await res.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `Department_Timetable_${new Date().toISOString().split("T")[0]}.xlsx`;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            window.URL.revokeObjectURL(url);
+
+            showMsg("Excel spreadsheet downloaded successfully!");
+        } catch (err) {
+            showMsg(err.message, "error");
+        } finally {
+            setDownloading(false);
+        }
     };
 
     // Generic poster handler
@@ -250,7 +280,22 @@ export default function AdminDashboard() {
                                 {/* CURRENT SCHEDULE GENERATION SLOTS TAB */}
                                 {activeTab === "schedule" && (
                                     <div className="space-y-4">
-                                        <h3 className="text-xl font-bold text-black">Master Calendar Allocations Matrix</h3>
+                                        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                                            <h3 className="text-xl font-bold text-black">Master Calendar Allocations Matrix</h3>
+
+                                            {/* DOWNLOAD EXCEL BUTTON */}
+                                            {timetables.length > 0 && (
+                                                <button
+                                                    onClick={handleDownloadExcel}
+                                                    disabled={downloading}
+                                                    className="btn btn-ghost bg-green-600 hover:bg-green-700 text-white rounded-xl gap-2 font-bold shadow-sm"
+                                                >
+                                                    <Download className="w-4 h-4" />
+                                                    {downloading ? "Downloading..." : "Export Excel"}
+                                                </button>
+                                            )}
+                                        </div>
+
                                         {timetables.length === 0 ? (
                                             <div className="text-center py-12 text-black/90">No schedules map allocated yet. Supply parameter constraints and click <b>Generate Timetable</b> above.</div>
                                         ) : (
@@ -280,6 +325,5 @@ export default function AdminDashboard() {
                 </div>
             </div>
         </>
-
     );
 }
